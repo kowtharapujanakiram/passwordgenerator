@@ -1,0 +1,49 @@
+import random
+import string
+
+def generate_password(length=12, use_digits=True, use_special=True):
+    """
+    Generates a random password with the given options.
+    
+    Parameters:
+        length (int): Length of the password (default: 12)
+        use_digits (bool): Whether to include digits 0-9
+        use_special (bool): Whether to include special characters like !@#$
+    
+    Returns:
+        str: Generated password
+    """
+    
+    # Basic letters
+    characters = string.ascii_letters  # a-z, A-Z
+    
+    # Add digits if allowed
+    if use_digits:
+        characters += string.digits  # 0-9
+    
+    # Add special characters if allowed
+    if use_special:
+        characters += string.punctuation  # !@#$%^&*() etc.
+    
+    # Ensure we have enough characters to choose from
+    if length < 4:
+        raise ValueError("Password length should be at least 4 characters")
+    
+    # Generate password
+    password = ''.join(random.choice(characters) for _ in range(length))
+    
+    return password
+
+
+if __name__ == "__main__":
+    print("🔐 Welcome to the Password Generator 🔐")
+    
+    # Ask user for inputs
+    length = int(input("Enter password length (default 12): ") or 12)
+    use_digits = input("Include digits? (y/n, default y): ").lower() != 'n'
+    use_special = input("Include special characters? (y/n, default y): ").lower() != 'n'
+    
+    # Generate password
+    password = generate_password(length, use_digits, use_special)
+    
+    print("\n✅ Your secure password is:", password)
